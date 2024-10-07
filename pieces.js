@@ -176,5 +176,36 @@ boutonMettreAJour.addEventListener("click", function () {
     window.localStorage.removeItem("pieces");
 });
 
-await afficherGraphiqueAvis();
+ async function afficherGraphiqueDisponibility() {
+    // Calcul du nombre total de commentaires par quantité d'étoiles attribuées
+    
+    const nb_total_piece = pieces[pieces.length];
 
+    
+    // Légende qui s'affichera sur la gauche à côté de la barre horizontale
+    const labels= nb_total_piece;
+    // Données et personnalisation du graphique
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: "piece abordable",
+            data: nb_commentaires.reverse(),
+            backgroundColor: "rgba(255, 230, 0, 1)", // couleur jaune
+        }],
+    };
+    // Objet de configuration final
+    const config = {
+        type: "bar",
+        data: data,
+        options: {
+            indexAxis: "y",
+        },
+    };
+    // Rendu du graphique dans l'élément canvas
+    const graphiqueAvis = new Chart(
+        document.querySelector("#graphique-avis"),
+        config,
+    );
+}
+
+await afficherGraphiqueAvis();
